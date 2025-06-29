@@ -3,6 +3,28 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Custom brand colors based on #E19827 */
+  --brand-50: #fef7ed;
+  --brand-100: #fde8d3;
+  --brand-200: #fbcea5;
+  --brand-300: #f8ab6d;
+  --brand-400: #f48332;
+  --brand-500: #e19827;
+  --brand-600: #c1761c;
+  --brand-700: #a05a1a;
+  --brand-800: #82471c;
+  --brand-900: #6b3b1a;
+  /* Custom secondary colors based on #589CA9 */
+  --secondary-50: #f0f9fa;
+  --secondary-100: #d9f1f3;
+  --secondary-200: #b8e3e8;
+  --secondary-300: #8ccdd6;
+  --secondary-400: #6bb4c1;
+  --secondary-500: #589ca9;
+  --secondary-600: #4a828e;
+  --secondary-700: #3f6a73;
+  --secondary-800: #37575f;
+  --secondary-900: #314951;
 }
 
 @theme inline {
@@ -19,8 +41,235 @@
   }
 }
 
-body {
+/* Custom brand color utility classes */
+.text-brand-50 { color: var(--brand-50); }
+.text-brand-100 { color: var(--brand-100); }
+.text-brand-200 { color: var(--brand-200); }
+.text-brand-300 { color: var(--brand-300); }
+.text-brand-400 { color: var(--brand-400); }
+.text-brand-500 { color: var(--brand-500); }
+.text-brand-600 { color: var(--brand-600); }
+.text-brand-700 { color: var(--brand-700); }
+.text-brand-800 { color: var(--brand-800); }
+.text-brand-900 { color: var(--brand-900); }
+
+.bg-brand-50 { background-color: var(--brand-50); }
+.bg-brand-100 { background-color: var(--brand-100); }
+.bg-brand-200 { background-color: var(--brand-200); }
+.bg-brand-300 { background-color: var(--brand-300); }
+.bg-brand-400 { background-color: var(--brand-400); }
+.bg-brand-500 { background-color: var(--brand-500); }
+.bg-brand-600 { background-color: var(--brand-600); }
+.bg-brand-700 { background-color: var(--brand-700); }
+.bg-brand-800 { background-color: var(--brand-800); }
+.bg-brand-900 { background-color: var(--brand-900); }
+
+.border-brand-50 { border-color: var(--brand-50); }
+.border-brand-100 { border-color: var(--brand-100); }
+.border-brand-200 { border-color: var(--brand-200); }
+.border-brand-300 { border-color: var(--brand-300); }
+.border-brand-400 { border-color: var(--brand-400); }
+.border-brand-500 { border-color: var(--brand-500); }
+.border-brand-600 { border-color: var(--brand-600); }
+.border-brand-700 { border-color: var(--brand-700); }
+.border-brand-800 { border-color: var(--brand-800); }
+.border-brand-900 { border-color: var(--brand-900); }
+
+.hover\:bg-brand-50:hover { background-color: var(--brand-50); }
+.hover\:bg-brand-100:hover { background-color: var(--brand-100); }
+.hover\:bg-brand-200:hover { background-color: var(--brand-200); }
+.hover\:bg-brand-300:hover { background-color: var(--brand-300); }
+.hover\:bg-brand-400:hover { background-color: var(--brand-400); }
+.hover\:bg-brand-500:hover { background-color: var(--brand-500); }
+.hover\:bg-brand-600:hover { background-color: var(--brand-600); }
+.hover\:bg-brand-700:hover { background-color: var(--brand-700); }
+.hover\:bg-brand-800:hover { background-color: var(--brand-800); }
+.hover\:bg-brand-900:hover { background-color: var(--brand-900); }
+
+.hover\:text-brand-50:hover { color: var(--brand-50); }
+.hover\:text-brand-100:hover { color: var(--brand-100); }
+.hover\:text-brand-200:hover { color: var(--brand-200); }
+.hover\:text-brand-300:hover { color: var(--brand-300); }
+.hover\:text-brand-400:hover { color: var(--brand-400); }
+.hover\:text-brand-500:hover { color: var(--brand-500); }
+.hover\:text-brand-600:hover { color: var(--brand-600); }
+.hover\:text-brand-700:hover { color: var(--brand-700); }
+.hover\:text-brand-800:hover { color: var(--brand-800); }
+.hover\:text-brand-900:hover { color: var(--brand-900); }
+
+/* Custom secondary color utility classes */
+.text-secondary-50 { color: var(--secondary-50); }
+.text-secondary-100 { color: var(--secondary-100); }
+.text-secondary-200 { color: var(--secondary-200); }
+.text-secondary-300 { color: var(--secondary-300); }
+.text-secondary-400 { color: var(--secondary-400); }
+.text-secondary-500 { color: var(--secondary-500); }
+.text-secondary-600 { color: var(--secondary-600); }
+.text-secondary-700 { color: var(--secondary-700); }
+.text-secondary-800 { color: var(--secondary-800); }
+.text-secondary-900 { color: var(--secondary-900); }
+
+.bg-secondary-50 { background-color: var(--secondary-50); }
+.bg-secondary-100 { background-color: var(--secondary-100); }
+.bg-secondary-200 { background-color: var(--secondary-200); }
+.bg-secondary-300 { background-color: var(--secondary-300); }
+.bg-secondary-400 { background-color: var(--secondary-400); }
+.bg-secondary-500 { background-color: var(--secondary-500); }
+.bg-secondary-600 { background-color: var(--secondary-600); }
+.bg-secondary-700 { background-color: var(--secondary-700); }
+.bg-secondary-800 { background-color: var(--secondary-800); }
+.bg-secondary-900 { background-color: var(--secondary-900); }
+
+.border-secondary-50 { border-color: var(--secondary-50); }
+.border-secondary-100 { border-color: var(--secondary-100); }
+.border-secondary-200 { border-color: var(--secondary-200); }
+.border-secondary-300 { border-color: var(--secondary-300); }
+.border-secondary-400 { border-color: var(--secondary-400); }
+.border-secondary-500 { border-color: var(--secondary-500); }
+.border-secondary-600 { border-color: var(--secondary-600); }
+.border-secondary-700 { border-color: var(--secondary-700); }
+.border-secondary-800 { border-color: var(--secondary-800); }
+.border-secondary-900 { border-color: var(--secondary-900); }
+
+.hover\:bg-secondary-50:hover { background-color: var(--secondary-50); }
+.hover\:bg-secondary-100:hover { background-color: var(--secondary-100); }
+.hover\:bg-secondary-200:hover { background-color: var(--secondary-200); }
+.hover\:bg-secondary-300:hover { background-color: var(--secondary-300); }
+.hover\:bg-secondary-400:hover { background-color: var(--secondary-400); }
+.hover\:bg-secondary-500:hover { background-color: var(--secondary-500); }
+.hover\:bg-secondary-600:hover { background-color: var(--secondary-600); }
+.hover\:bg-secondary-700:hover { background-color: var(--secondary-700); }
+.hover\:bg-secondary-800:hover { background-color: var(--secondary-800); }
+.hover\:bg-secondary-900:hover { background-color: var(--secondary-900); }
+
+.hover\:text-secondary-50:hover { color: var(--secondary-50); }
+.hover\:text-secondary-100:hover { color: var(--secondary-100); }
+.hover\:text-secondary-200:hover { color: var(--secondary-200); }
+.hover\:text-secondary-300:hover { color: var(--secondary-300); }
+.hover\:text-secondary-400:hover { color: var(--secondary-400); }
+.hover\:text-secondary-500:hover { color: var(--secondary-500); }
+.hover\:text-secondary-600:hover { color: var(--secondary-600); }
+.hover\:text-secondary-700:hover { color: var(--secondary-700); }
+.hover\:text-secondary-800:hover { color: var(--secondary-800); }
+.hover\:text-secondary-900:hover { color: var(--secondary-900); }
+
+/* Custom gradient classes */
+.bg-gradient-to-r-brand { background: linear-gradient(to right, var(--brand-600), var(--brand-400)); }
+.bg-gradient-to-br-brand { background: linear-gradient(to bottom right, var(--brand-50), var(--brand-100)); }
+.bg-gradient-to-r-secondary { background: linear-gradient(to right, var(--secondary-600), var(--secondary-400)); }
+.bg-gradient-to-br-secondary { background: linear-gradient(to bottom right, var(--secondary-50), var(--secondary-100)); }
+.bg-gradient-to-r-brand-secondary { background: linear-gradient(to right, var(--brand-600), var(--secondary-600)); }
+.bg-gradient-to-br-brand-secondary { background: linear-gradient(to bottom right, var(--brand-50), var(--secondary-50)); }
+
+/* Scope main app styles to avoid affecting admin */
+body.main-app {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cairo-arabic), Arial, Helvetica, sans-serif;
+}
+
+.main-app-wrapper {
+  min-height: 100vh;
+}
+
+/* Ensure main app styles don't leak to admin routes */
+.main-app-wrapper * {
+  /* Main app specific styles can go here */
+}
+
+/* Stylish nav-link and button styles for navigation */
+.nav-link {
+  position: relative;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-link:hover {
+  color: var(--brand-600);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--brand-600);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: right;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.register-btn {
+  background: var(--brand-600);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
+  transition: all 0.3s;
+  outline: none;
+}
+.register-btn:hover {
+  background: var(--brand-700);
+  transform: scale(1.05);
+}
+.register-btn:focus {
+  box-shadow: 0 0 0 2px var(--brand-400);
+}
+.animate-spin-slow {
+  animation: spin 4s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* Beach wave animation for hero section */
+@keyframes beachWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating animation for beach elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Wave pattern animation */
+@keyframes wave {
+  0% { background-position-x: 0; }
+  100% { background-position-x: 80px; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes blurIn {
+  from { filter: blur(24px) opacity(0.5); }
+  to { filter: blur(12px) opacity(1); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.animate-scaleIn {
+  animation: scaleIn 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.animate-blurIn {
+  animation: blurIn 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+html {
+  scroll-behavior: smooth;
 }
