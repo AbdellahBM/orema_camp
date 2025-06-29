@@ -149,7 +149,7 @@ export default function RegistrationDetailPage() {
           <p className="text-gray-600 mb-4">You are not authorized to access this page.</p>
           <button
             onClick={() => router.push('/admin')}
-            className="text-blue-600 hover:text-blue-800"
+            className="text-brand-600 hover:text-brand-800"
           >
             Go to Admin Login
           </button>
@@ -166,7 +166,7 @@ export default function RegistrationDetailPage() {
           <p className="text-gray-600 mb-4">The registration you're looking for doesn't exist.</p>
           <button
             onClick={() => router.push('/admin')}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700"
           >
             Back to Admin Dashboard
           </button>
@@ -221,7 +221,7 @@ export default function RegistrationDetailPage() {
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700"
                 >
                   Edit
                 </button>
@@ -266,7 +266,7 @@ export default function RegistrationDetailPage() {
         {/* Profile Card */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-8">
+          <div className="bg-gradient-to-r-brand-secondary px-6 py-8">
             <div className="flex items-center space-x-6">
               {/* Profile Photo or Avatar */}
               <div className="flex-shrink-0">
@@ -278,7 +278,7 @@ export default function RegistrationDetailPage() {
                   />
                 ) : (
                   <div className="h-24 w-24 rounded-full bg-white flex items-center justify-center border-4 border-white shadow-lg">
-                    <span className="text-2xl font-bold text-blue-600">
+                    <span className="text-2xl font-bold text-brand-600">
                       {getInitials(registration.name)}
                     </span>
                   </div>
@@ -334,7 +334,7 @@ export default function RegistrationDetailPage() {
                       type="email"
                       value={editData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     />
                   ) : (
                     <p className="text-gray-900">{registration.email}</p>
@@ -348,7 +348,7 @@ export default function RegistrationDetailPage() {
                       type="text"
                       value={editData.phone || ''}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     />
                   ) : (
                     <p className="text-gray-900">{registration.phone || 'Not provided'}</p>
@@ -391,7 +391,7 @@ export default function RegistrationDetailPage() {
                   value={editData.extra_info || ''}
                   onChange={(e) => handleInputChange('extra_info', e.target.value)}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="Additional information..."
                 />
               ) : (
@@ -417,7 +417,7 @@ export default function RegistrationDetailPage() {
                     href={registration.photo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 underline"
+                    className="text-brand-600 hover:text-brand-800 underline"
                   >
                     View Full Size Photo
                   </a>
