@@ -172,6 +172,12 @@ export default function HomePage() {
                 >
                   الملصق
                 </button>
+                <Link
+                  href="/admin"
+                  className="ml-2 px-4 py-2 rounded-lg font-medium shadow-md transition-all duration-300 bg-secondary-100 text-secondary-700 border border-secondary-300 hover:bg-secondary-200 hover:text-secondary-800 focus:outline-none focus:ring-2 focus:ring-secondary-400"
+                >
+                  🏕️ إدارة
+                </Link>
               </div>
             </div>
             <Link 
@@ -202,6 +208,13 @@ export default function HomePage() {
             >
               الملصق
             </button>
+            <Link 
+              href="/admin"
+              className="w-full text-center mt-2 px-4 py-2 rounded-lg font-medium shadow-md transition-all duration-300 bg-secondary-100 text-secondary-700 border border-secondary-300 hover:bg-secondary-200 hover:text-secondary-800 focus:outline-none focus:ring-2 focus:ring-secondary-400"
+              onClick={() => toggleMenu()}
+            >
+              🏕️ إدارة
+            </Link>
             <Link href="/register" className="register-btn w-full text-center mt-2">سجل الآن</Link>
           </div>
         </div>
