@@ -275,7 +275,7 @@ export default function AdminPage() {
                 value={loginData.email}
                 onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="admin-form-input"
+                className="admin-form-input placeholder-gray-600 text-gray-900"
                 placeholder="Enter your admin email"
               />
             </div>
@@ -290,7 +290,7 @@ export default function AdminPage() {
                 value={loginData.password}
                 onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
                 required
-                className="admin-form-input"
+                className="admin-form-input placeholder-gray-600 text-gray-900"
                 placeholder="Enter your password"
               />
             </div>
