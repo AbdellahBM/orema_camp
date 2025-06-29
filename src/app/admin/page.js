@@ -7,7 +7,7 @@ import AdminTable from '../components/AdminTable'
 import SearchBar from '../components/SearchBar'
 import StatusFilter from '../components/StatusFilter'
 import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import autoTable from 'jspdf-autotable'
 
 const ADMIN_EMAILS = [
   "khouloud@orema.com",
@@ -180,7 +180,7 @@ export default function AdminPage() {
       ])
 
       // Add table
-      doc.autoTable({
+      autoTable(doc, {
         startY: 45,
         head: [['Name', 'Email', 'Phone', 'Additional Info', 'Registration Date']],
         body: tableData,
@@ -242,7 +242,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <p className="mt-4 text-gray-800">Loading...</p>
         </div>
       </div>
     )
@@ -255,7 +255,7 @@ export default function AdminPage() {
         <div className="max-w-md w-full admin-form">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900">🏕️ Admin Panel</h1>
-            <p className="text-gray-600 mt-2">Sign in to access the dashboard</p>
+            <p className="text-gray-800 mt-2">Sign in to access the dashboard</p>
           </div>
 
           {error && (
@@ -316,7 +316,7 @@ export default function AdminPage() {
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">🏕️ Camp Admin Dashboard</h1>
-              <p className="text-gray-600">Welcome, {user.email}</p>
+              <p className="text-gray-800">Welcome, {user.email}</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
@@ -360,23 +360,23 @@ export default function AdminPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-700">Total Registrations</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Total Registrations</h3>
             <p className="text-3xl font-bold text-blue-600">{registrations.length}</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-700">New</h3>
+            <h3 className="text-lg font-semibold text-gray-900">New</h3>
             <p className="text-3xl font-bold text-yellow-600">
               {registrations.filter(r => r.status === 'new').length}
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-700">Approved</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Approved</h3>
             <p className="text-3xl font-bold text-green-600">
               {registrations.filter(r => r.status === 'approved').length}
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-700">Declined</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Declined</h3>
             <p className="text-3xl font-bold text-red-600">
               {registrations.filter(r => r.status === 'declined').length}
             </p>
@@ -412,21 +412,21 @@ export default function AdminPage() {
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Previous
               </button>
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-gray-900">
                   Showing{' '}
                   <span className="font-medium">{indexOfFirstItem + 1}</span>
                   {' '}to{' '}
@@ -443,7 +443,7 @@ export default function AdminPage() {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
@@ -454,7 +454,7 @@ export default function AdminPage() {
                       className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                         currentPage === index + 1
                           ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                          : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                          : 'bg-white border-gray-300 text-gray-800 hover:bg-gray-50'
                       }`}
                     >
                       {index + 1}
@@ -463,7 +463,7 @@ export default function AdminPage() {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>

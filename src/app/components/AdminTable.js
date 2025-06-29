@@ -135,7 +135,7 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
           disabled={isLoading || dailyLimitReached}
           className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-colors ${
             dailyLimitReached
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              ? 'bg-gray-100 text-gray-600 cursor-not-allowed'
               : isLoading
               ? 'bg-green-100 text-green-600 cursor-not-allowed'
               : 'bg-green-50 text-green-600 hover:bg-green-100 hover:text-green-700'
@@ -172,11 +172,11 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
     return (
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="text-center py-12">
-          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="mx-auto h-12 w-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <h3 className="mt-2 text-sm font-medium text-gray-900">No registrations found</h3>
-          <p className="mt-1 text-sm text-gray-500">Registrations will appear here once users start signing up</p>
+          <p className="mt-1 text-sm text-gray-700">Registrations will appear here once users start signing up</p>
         </div>
       </div>
     )
@@ -206,22 +206,22 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Participant
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Contact
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Registration Date
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 WhatsApp Notification
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
@@ -255,12 +255,12 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">{registration.email}</div>
-                  <div className="text-sm text-gray-500">{registration.phone || 'No phone'}</div>
+                  <div className="text-sm text-gray-700">{registration.phone || 'No phone'}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {getStatusBadge(registration.status)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                   {new Date(registration.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -300,7 +300,7 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
               </div>
               <h3 className="text-lg font-medium text-gray-900 mt-4">Delete Registration</h3>
               <div className="mt-2 px-7 py-3">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-700">
                   Are you sure you want to delete the registration for <strong>{registrationToDelete.name}</strong>? 
                   This action cannot be undone.
                 </p>

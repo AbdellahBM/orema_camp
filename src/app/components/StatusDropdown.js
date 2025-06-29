@@ -15,7 +15,7 @@ const StatusDropdown = ({ currentStatus, onStatusChange }) => {
       <select
         value={currentStatus}
         onChange={(e) => onStatusChange(e.target.value)}
-        className={`appearance-none bg-white border border-gray-300 rounded-lg px-3 py-1 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${currentOption?.color || 'bg-gray-100 text-gray-800'}`}
+        className={`appearance-none bg-white border border-gray-300 rounded-lg px-3 py-1 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${currentOption?.color || 'bg-gray-500 text-gray-800'}`}
       >
         {statusOptions.map(option => (
           <option key={option.value} value={option.value}>
@@ -24,7 +24,7 @@ const StatusDropdown = ({ currentStatus, onStatusChange }) => {
         ))}
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-        <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>

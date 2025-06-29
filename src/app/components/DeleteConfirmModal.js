@@ -14,7 +14,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, registrationName }) =>
           </div>
           <h3 className="text-lg font-medium text-gray-900 mt-4">Delete Registration</h3>
           <div className="mt-2 px-7 py-3">
-            <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-700">
               Are you sure you want to delete the registration for <strong>{registrationName}</strong>? 
               This action cannot be undone.
             </p>

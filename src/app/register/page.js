@@ -17,12 +17,100 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [photoPreview, setPhotoPreview] = useState(null)
 
+  const validatePhoneNumber = (phone) => {
+    // Remove all spaces, dashes, and parentheses
+    const cleanPhone = phone.replace(/[\s\-\(\)]/g, '')
+    
+    // Check if it's a valid Moroccan phone number
+    // Formats accepted:
+    // +212XXXXXXXXX (country code + 9 digits)
+    // 212XXXXXXXXX (country code + 9 digits)  
+    // 0XXXXXXXXX (10 digits starting with 0)
+    // XXXXXXXXX (9 digits)
+    
+    const moroccanMobileRegex = /^(\+212|212|0)?[67]\d{8}$/
+    const moroccanLandlineRegex = /^(\+212|212|0)?5\d{8}$/
+    
+    return moroccanMobileRegex.test(cleanPhone) || moroccanLandlineRegex.test(cleanPhone)
+  }
+
+  const formatPhoneNumber = (value) => {
+    // Remove all non-digit characters except +
+    const cleaned = value.replace(/[^\d+]/g, '')
+    
+    // If starts with +212, format as +212 X XX XX XX XX
+    if (cleaned.startsWith('+212')) {
+      const number = cleaned.slice(4)
+      if (number.length <= 9) {
+        return '+212 ' + number.replace(/(\d{1})(\d{2})?(\d{2})?(\d{2})?(\d{2})?/, (match, p1, p2, p3, p4, p5) => {
+          let result = p1
+          if (p2) result += ' ' + p2
+          if (p3) result += ' ' + p3
+          if (p4) result += ' ' + p4
+          if (p5) result += ' ' + p5
+          return result
+        }).trim()
+      }
+    }
+    // If starts with 212, format as 212 X XX XX XX XX
+    else if (cleaned.startsWith('212')) {
+      const number = cleaned.slice(3)
+      if (number.length <= 9) {
+        return '212 ' + number.replace(/(\d{1})(\d{2})?(\d{2})?(\d{2})?(\d{2})?/, (match, p1, p2, p3, p4, p5) => {
+          let result = p1
+          if (p2) result += ' ' + p2
+          if (p3) result += ' ' + p3
+          if (p4) result += ' ' + p4
+          if (p5) result += ' ' + p5
+          return result
+        }).trim()
+      }
+    }
+    // If starts with 0, format as 0X XX XX XX XX
+    else if (cleaned.startsWith('0')) {
+      if (cleaned.length <= 10) {
+        return cleaned.replace(/(\d{2})(\d{2})?(\d{2})?(\d{2})?(\d{2})?/, (match, p1, p2, p3, p4, p5) => {
+          let result = p1
+          if (p2) result += ' ' + p2
+          if (p3) result += ' ' + p3
+          if (p4) result += ' ' + p4
+          if (p5) result += ' ' + p5
+          return result
+        }).trim()
+      }
+    }
+    // If no country code, format as X XX XX XX XX
+    else {
+      if (cleaned.length <= 9) {
+        return cleaned.replace(/(\d{1})(\d{2})?(\d{2})?(\d{2})?(\d{2})?/, (match, p1, p2, p3, p4, p5) => {
+          let result = p1
+          if (p2) result += ' ' + p2
+          if (p3) result += ' ' + p3
+          if (p4) result += ' ' + p4
+          if (p5) result += ' ' + p5
+          return result
+        }).trim()
+      }
+    }
+    
+    return cleaned
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    
+    let processedValue = value
+    
+    // Special handling for phone number
+    if (name === 'phoneNumber') {
+      processedValue = formatPhoneNumber(value)
+    }
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: processedValue
     }))
+    
     // Clear error when user starts typing
     if (error) setError('')
   }
@@ -72,7 +160,11 @@ export default function RegisterPage() {
       return false
     }
     if (!formData.phoneNumber.trim()) {
-      setError('Phone number is required')
+      setError('رقم الهاتف مطلوب')
+      return false
+    }
+    if (!validatePhoneNumber(formData.phoneNumber)) {
+      setError('يرجى إدخال رقم هاتف مغربي صحيح (مثال: +212 6 12 34 56 78 أو 0612345678)')
       return false
     }
     if (!formData.extraInfo.trim()) {
@@ -180,7 +272,7 @@ export default function RegisterPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-8 relative z-10">
           <div className="text-center mb-8">
             <h1 className="text-5xl md:text-7xl font-extrabold text-brand-600 mb-2 tracking-tight leading-tight">استمارة التسجيل في الملتقى الصيفي</h1>
-            <div className="text-lg text-gray-700 font-semibold mb-2">انضم إلينا في مغامرة صيفية لا تُنسى!</div>
+            <div className="text-lg text-gray-900 font-semibold mb-2">انضم إلينا في مغامرة صيفية لا تُنسى!</div>
           </div>
           <div className="text-center mt-8">
             <div className="relative group">
@@ -226,7 +318,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-900 mb-2">
                 الاسم الكامل *
               </label>
               <input
@@ -236,14 +328,14 @@ export default function RegisterPage() {
                 value={formData.fullName}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
                 placeholder="أدخل اسمك الكامل"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
                 البريد الإلكتروني *
               </label>
               <input
@@ -253,14 +345,14 @@ export default function RegisterPage() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
                 placeholder="أدخل بريدك الإلكتروني"
               />
             </div>
 
             {/* Phone Number */}
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-900 mb-2">
                 رقم الهاتف *
               </label>
               <input
@@ -270,14 +362,18 @@ export default function RegisterPage() {
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
                 placeholder="أدخل رقم هاتفك"
+                dir="ltr"
               />
+              <p className="text-sm text-gray-700 mt-1">
+                أدخل رقم هاتف مغربي صحيح (موبايل: 06/07، ثابت: 05) مع أو بدون رمز البلد +212
+              </p>
             </div>
 
             {/* Extra Info */}
             <div>
-              <label htmlFor="extraInfo" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="extraInfo" className="block text-sm font-medium text-gray-900 mb-2">
                 معلومات إضافية *
               </label>
               <textarea
@@ -287,14 +383,14 @@ export default function RegisterPage() {
                 onChange={handleInputChange}
                 required
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none placeholder-gray-600 text-gray-900"
                 placeholder="أخبرنا عن أي معلومات صحية أو طلبات خاصة..."
               />
             </div>
 
             {/* Photo Upload */}
             <div>
-              <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="photo" className="block text-sm font-medium text-gray-900 mb-2">
                 صورة شخصية *
               </label>
               <div className="space-y-4">
@@ -310,7 +406,7 @@ export default function RegisterPage() {
                 
                 {photoPreview && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-600 mb-2">معاينة الصورة:</p>
+                    <p className="text-sm text-gray-900 mb-2">معاينة الصورة:</p>
                     <img
                       src={photoPreview}
                       alt="Photo preview"
@@ -319,7 +415,7 @@ export default function RegisterPage() {
                   </div>
                 )}
               </div>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-700 mt-1">
                 يرجى رفع صورة واضحة (5MB كحد أقصى، بصيغة JPG أو PNG)
               </p>
             </div>
@@ -355,7 +451,7 @@ export default function RegisterPage() {
               <span className="text-2xl mr-3">🌲</span>
               <h3 className="text-lg font-semibold text-gray-800">أنشطة المخيم</h3>
             </div>
-            <p className="text-gray-600">رحلات مشي، سباحة، سهرات نار، ورشات يدوية، والمزيد من المغامرات!</p>
+            <p className="text-gray-800">رحلات مشي، سباحة، سهرات نار، ورشات يدوية، والمزيد من المغامرات!</p>
           </div>
           
           <div className="bg-white rounded-lg shadow-md p-6">
@@ -363,7 +459,7 @@ export default function RegisterPage() {
               <span className="text-2xl mr-3">📞</span>
               <h3 className="text-lg font-semibold text-gray-800">تحتاج مساعدة؟</h3>
             </div>
-            <p className="text-gray-600">لديك استفسار حول التسجيل؟ تواصل معنا عبر info@orema.ma أو اتصل على 0600 000 000</p>
+            <p className="text-gray-800">لديك استفسار حول التسجيل؟ تواصل معنا عبر info@orema.ma أو اتصل على 0600 000 000</p>
           </div>
         </div>
       </div>
