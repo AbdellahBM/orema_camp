@@ -293,7 +293,7 @@ export default function RegistrationDetailPage() {
                       type="text"
                       value={editData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="bg-white/20 border border-white/30 rounded-lg px-3 py-2 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className="bg-white/20 border border-white/30 rounded-lg px-3 py-2 text-white placeholder-white/90 focus:outline-none focus:ring-2 focus:ring-white/50"
                     />
                   ) : (
                     registration.name
@@ -328,13 +328,13 @@ export default function RegistrationDetailPage() {
                 </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Email</label>
                   {isEditing ? (
                     <input
                       type="email"
                       value={editData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
                     />
                   ) : (
                     <p className="text-gray-900">{registration.email}</p>
@@ -342,16 +342,16 @@ export default function RegistrationDetailPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Phone</label>
                   {isEditing ? (
                     <input
                       type="text"
                       value={editData.phone || ''}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
                     />
                   ) : (
-                    <p className="text-gray-900">{registration.phone || 'Not provided'}</p>
+                    <p className="text-gray-900">{registration.phone || <span className="text-gray-600 italic">Not provided</span>}</p>
                   )}
                 </div>
               </div>
@@ -363,18 +363,18 @@ export default function RegistrationDetailPage() {
                 </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Status</label>
                   <div>{getStatusBadge(registration.status)}</div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Registration Date</label>
+                                      <label className="block text-sm font-medium text-gray-900 mb-1">Registration Date</label>
                   <p className="text-gray-900">{new Date(registration.created_at).toLocaleString()}</p>
                 </div>
 
                 {registration.updated_at && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Last Updated</label>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">Last Updated</label>
                     <p className="text-gray-900">{new Date(registration.updated_at).toLocaleString()}</p>
                   </div>
                 )}
@@ -391,12 +391,12 @@ export default function RegistrationDetailPage() {
                   value={editData.extra_info || ''}
                   onChange={(e) => handleInputChange('extra_info', e.target.value)}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
                   placeholder="Additional information..."
                 />
               ) : (
                 <p className="text-gray-900 whitespace-pre-wrap">
-                  {registration.extra_info || 'No additional information provided.'}
+                  {registration.extra_info || <span className="text-gray-600 italic">No additional information provided.</span>}
                 </p>
               )}
             </div>
