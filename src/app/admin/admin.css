@@ -1,6 +1,81 @@
 /* Admin-specific styles */
 @import "tailwindcss";
 
+/* Modern glassmorphism utilities for admin */
+.admin-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.admin-glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Custom scrollbar for admin tables */
+.admin-scrollbar::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ensure admin content has proper isolation */
+.admin-content {
+  isolation: isolate;
+}
+
+/* Admin-specific text selection */
+.admin-content ::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #1e40af;
+}
+
+/* Print styles for admin */
+@media print {
+  .admin-no-print {
+    display: none !important;
+  }
+  
+  .admin-print-only {
+    display: block !important;
+  }
+}
+
+/* Focus ring for admin accessibility */
+.admin-focus-ring:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Animation for admin loading states */
+@keyframes admin-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.admin-pulse {
+  animation: admin-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Admin layout specific styles */
 .admin-container {
   background-color: #f9fafb;
