@@ -3,6 +3,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { supabase } from '../../../../lib/supabaseClient'
+import { 
+  niveauScolaireOptions, 
+  orgStatusOptions, 
+  mapBooleanToArabic,
+  getArabicStatusDisplay
+} from '../../../../lib/formHelpers'
 
 const ADMIN_EMAILS = [
   "khouloud@orema.com",
@@ -334,21 +340,23 @@ export default function RegistrationDetailPage() {
 
           {/* Details Section */}
           <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Contact Information */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              
+              {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                  Contact Information
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 flex items-center">
+                  <span className="mr-2">👤</span>
+                  المعلومات الأساسية
                 </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">البريد الإلكتروني</label>
                   {isEditing ? (
                     <input
                       type="email"
                       value={editData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
                     />
                   ) : (
                     <p className="text-gray-900">{registration.email}</p>
@@ -356,84 +364,298 @@ export default function RegistrationDetailPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">رقم الهاتف</label>
                   {isEditing ? (
                     <input
                       type="text"
                       value={editData.phone || ''}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
                     />
                   ) : (
-                    <p className="text-gray-900">{registration.phone || <span className="text-gray-600 italic">Not provided</span>}</p>
+                    <p className="text-gray-900">{registration.phone || <span className="text-gray-600 italic">غير مقدم</span>}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">العمر</label>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      value={editData.age || ''}
+                      onChange={(e) => handleInputChange('age', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{registration.age ? `${registration.age} سنة` : <span className="text-gray-600 italic">غير مقدم</span>}</p>
                   )}
                 </div>
               </div>
 
-              {/* Registration Details */}
+              {/* Educational Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                  Registration Details
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 flex items-center">
+                  <span className="mr-2">🎓</span>
+                  المعلومات الدراسية
                 </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Status</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">المستوى الدراسي</label>
+                  {isEditing ? (
+                    <select
+                      value={editData.niveau_scolaire || ''}
+                      onChange={(e) => handleInputChange('niveau_scolaire', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                    >
+                      <option value="">اختر المستوى</option>
+                      {niveauScolaireOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{registration.niveau_scolaire || <span className="text-gray-600 italic">غير مقدم</span>}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">المؤسسة التعليمية</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={editData.school || ''}
+                      onChange={(e) => handleInputChange('school', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{registration.school || <span className="text-gray-600 italic">غير مقدم</span>}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Organization Information */}
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 flex items-center">
+                  <span className="mr-2">🏢</span>
+                  المعلومات التنظيمية
+                </h3>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">الحالة التنظيمية</label>
+                  {isEditing ? (
+                    <select
+                      value={editData.org_status || ''}
+                      onChange={(e) => handleInputChange('org_status', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                    >
+                      <option value="">اختر الحالة</option>
+                      {orgStatusOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{registration.org_status || <span className="text-gray-600 italic">غير مقدم</span>}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">المشاركة في مخيمات سابقة</label>
+                  <p className="text-gray-900">
+                    {registration.previous_camps !== null && registration.previous_camps !== undefined ? 
+                      mapBooleanToArabic(registration.previous_camps) : 
+                      <span className="text-gray-600 italic">غير مقدم</span>
+                    }
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">القدرة على دفع 350 درهم</label>
+                  <p className="text-gray-900">
+                    {registration.can_pay_350dh !== null && registration.can_pay_350dh !== undefined ? 
+                      mapBooleanToArabic(registration.can_pay_350dh) : 
+                      <span className="text-gray-600 italic">غير مقدم</span>
+                    }
+                  </p>
+                </div>
+              </div>
+
+              {/* Registration System Details */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 flex items-center">
+                  <span className="mr-2">📊</span>
+                  تفاصيل التسجيل
+                </h3>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">الحالة</label>
                   <div>{getStatusBadge(registration.status)}</div>
                 </div>
 
                 <div>
-                                      <label className="block text-sm font-medium text-gray-900 mb-1">Registration Date</label>
-                  <p className="text-gray-900">{new Date(registration.created_at).toLocaleString()}</p>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">تاريخ التسجيل</label>
+                  <p className="text-gray-900">{new Date(registration.created_at).toLocaleString('ar-MA')}</p>
                 </div>
 
                 {registration.updated_at && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-1">Last Updated</label>
-                    <p className="text-gray-900">{new Date(registration.updated_at).toLocaleString()}</p>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">آخر تحديث</label>
+                    <p className="text-gray-900">{new Date(registration.updated_at).toLocaleString('ar-MA')}</p>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Additional Information */}
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                Additional Information
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4 flex items-center">
+                <span className="mr-2">💬</span>
+                المعلومات الإضافية
               </h3>
-              {isEditing ? (
-                <textarea
-                  value={editData.extra_info || ''}
-                  onChange={(e) => handleInputChange('extra_info', e.target.value)}
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-gray-600"
-                  placeholder="Additional information..."
-                />
-              ) : (
-                <p className="text-gray-900 whitespace-pre-wrap">
-                  {registration.extra_info || <span className="text-gray-600 italic">No additional information provided.</span>}
-                </p>
-              )}
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Camp Expectation */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">توقعات المخيم</label>
+                  {isEditing ? (
+                    <textarea
+                      value={editData.camp_expectation || ''}
+                      onChange={(e) => handleInputChange('camp_expectation', e.target.value)}
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                      placeholder="توقعات المشارك من المخيم..."
+                    />
+                  ) : (
+                    <p className="text-gray-900 whitespace-pre-wrap bg-gray-50 p-3 rounded-lg">
+                      {registration.camp_expectation || <span className="text-gray-600 italic">غير مقدم</span>}
+                    </p>
+                  )}
+                </div>
+
+                {/* Extra Info (Health/Special requests) */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">معلومات صحية وطلبات خاصة</label>
+                  {isEditing ? (
+                    <textarea
+                      value={editData.extra_info || ''}
+                      onChange={(e) => handleInputChange('extra_info', e.target.value)}
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
+                      placeholder="معلومات صحية أو طلبات خاصة..."
+                    />
+                  ) : (
+                    <p className="text-gray-900 whitespace-pre-wrap bg-gray-50 p-3 rounded-lg">
+                      {registration.extra_info || <span className="text-gray-600 italic">غير مقدم</span>}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* AI Scoring Section */}
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4 flex items-center">
+                <span className="mr-2">🤖</span>
+                تقييم الذكاء الاصطناعي
+              </h3>
+              
+              <div className="space-y-6">
+                {/* Score Display */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-3">النتيجة</label>
+                  <div>
+                    {registration.score ? (
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <div className={`inline-flex items-center justify-center px-6 py-3 rounded-xl font-bold text-3xl shadow-lg ${
+                          registration.score >= 80 ? 'bg-green-100 text-green-800 border border-green-200' :
+                          registration.score >= 60 ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                          'bg-red-100 text-red-800 border border-red-200'
+                        }`}>
+                          {registration.score}/100
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">
+                            {registration.score >= 80 ? '🌟' :
+                             registration.score >= 60 ? '✅' :
+                             '⚠️'}
+                          </span>
+                          <span className={`font-semibold text-lg ${
+                            registration.score >= 80 ? 'text-green-700' :
+                            registration.score >= 60 ? 'text-yellow-700' :
+                            'text-red-700'
+                          }`}>
+                            {registration.score >= 80 ? 'ممتاز' :
+                             registration.score >= 60 ? 'جيد' :
+                             'يحتاج مراجعة'}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <span className="text-gray-500 italic flex items-center gap-2">
+                          <span>🤖</span>
+                          لم يتم التقييم بعد
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Score Explanation */}
+                {registration.score_explanation && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-3">شرح التقييم</label>
+                    <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="text-indigo-600 text-xl flex-shrink-0 mt-1">💭</span>
+                        <p className="text-gray-900 leading-relaxed whitespace-pre-wrap">
+                          {registration.score_explanation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* No Explanation Message */}
+                {registration.score && !registration.score_explanation && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-3">شرح التقييم</label>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <span className="text-gray-500 italic flex items-center gap-2">
+                        <span>❓</span>
+                        لا يوجد شرح متاح للتقييم
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Photo Section */}
             {registration.photo_url && (
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                  Profile Photo
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4 flex items-center">
+                  <span className="mr-2">📷</span>
+                  الصورة الشخصية
                 </h3>
                 <div className="flex items-center space-x-4">
                   <img
                     src={registration.photo_url}
                     alt={registration.name}
-                    className="h-32 w-32 rounded-lg object-cover border border-gray-200"
+                    className="h-32 w-32 rounded-lg object-cover border border-gray-200 shadow-md"
                   />
                   <a
                     href={registration.photo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 hover:text-brand-800 underline"
+                    className="text-brand-600 hover:text-brand-800 underline flex items-center"
                   >
-                    View Full Size Photo
+                    <span className="mr-2">🔍</span>
+                    عرض الصورة بالحجم الكامل
                   </a>
                 </div>
               </div>
