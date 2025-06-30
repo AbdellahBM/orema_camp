@@ -247,8 +247,10 @@ export default function HomePage() {
                 className="object-cover w-full h-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" 
               />
               {/* Speaker Description */}
-              <div className="absolute bottom-20 left-0 right-0 text-center font-bold mb-4 drop-shadow-lg" style={{ fontFamily: 'Tasees, Tasees Bold, sans-serif', background: 'linear-gradient(90deg, #FFD700 0%, #FFC300 40%, #FFB300 70%, #FF8F00 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textShadow: '0 2px 8px rgba(0,0,0,0.18), 0 1px 0 #fff' }}>
-                <p className="inline-block px-4 py-1 rounded-lg bg-white/10 backdrop-blur-sm">علم الدورة : الأستاذ عبد الله شبابو</p>
+              <div className="absolute bottom-20 left-0 right-0 text-center font-bold mb-4">
+                <p className="inline-block px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 drop-shadow-lg">
+                  علم الدورة : الأستاذ عبد الله شبابو
+                </p>
               </div>
             </div>
           </div>
