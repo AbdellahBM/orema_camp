@@ -22,6 +22,34 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
     )
   }
 
+  const getAIScoreBadge = (score) => {
+    if (!score && score !== 0) {
+      return (
+        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+          <span className="text-xs font-medium text-gray-500">-</span>
+        </div>
+      )
+    }
+
+    // Calculate color based on score (green to blue gradient)
+    // Score 0-100: hue from 120 (green) to 240 (blue)
+    const hue = 120 + (score / 100) * 120 // 120 to 240
+    const backgroundColor = `hsl(${hue}, 70%, 85%)`
+    const textColor = `hsl(${hue}, 70%, 30%)`
+
+    return (
+      <div 
+        className="w-12 h-12 rounded-full flex items-center justify-center shadow-sm"
+        style={{ 
+          backgroundColor: backgroundColor,
+          color: textColor
+        }}
+      >
+        <span className="text-sm font-bold">{score}</span>
+      </div>
+    )
+  }
+
   const getInitials = (name) => {
     return name
       .split(' ')
@@ -216,6 +244,9 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
                 Status
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                AI Score
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Registration Date
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
@@ -259,6 +290,9 @@ const AdminTable = ({ registrations, onViewRegistration, onDeleteRegistration, o
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {getStatusBadge(registration.status)}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {getAIScoreBadge(registration.score)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                   {new Date(registration.created_at).toLocaleDateString()}
