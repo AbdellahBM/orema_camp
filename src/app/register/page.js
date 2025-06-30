@@ -476,54 +476,54 @@ export default function RegisterPage() {
                 المعلومات الأساسية
               </h3>
               <div className="space-y-4">
-                {/* Full Name */}
-                <div>
+            {/* Full Name */}
+            <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-900 mb-2">
-                    الاسم الكامل *
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    required
+                الاسم الكامل *
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
+                required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
-                    placeholder="أدخل اسمك الكامل"
-                  />
-                </div>
+                placeholder="أدخل اسمك الكامل"
+              />
+            </div>
 
-                {/* Email */}
-                <div>
+            {/* Email */}
+            <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
-                    البريد الإلكتروني *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
+                البريد الإلكتروني *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
-                    placeholder="أدخل بريدك الإلكتروني"
-                  />
-                </div>
+                placeholder="أدخل بريدك الإلكتروني"
+              />
+            </div>
 
-                {/* Phone Number */}
-                <div>
+            {/* Phone Number */}
+            <div>
                   <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-900 mb-2">
-                    رقم الهاتف *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleInputChange}
-                    required
+                رقم الهاتف *
+              </label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+                required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors placeholder-gray-600 text-gray-900"
-                    placeholder="أدخل رقم هاتفك"
+                placeholder="أدخل رقم هاتفك"
                     dir="ltr"
                   />
                   <p className="text-sm text-gray-700 mt-1">
@@ -717,24 +717,24 @@ export default function RegisterPage() {
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none placeholder-gray-600 text-gray-900"
                     placeholder="أخبرنا عن توقعاتك وأهدافك من المشاركة في هذا المخيم..."
-                  />
-                </div>
+              />
+            </div>
 
-                {/* Extra Info */}
-                <div>
+            {/* Extra Info */}
+            <div>
                   <label htmlFor="extraInfo" className="block text-sm font-medium text-gray-900 mb-2">
                     معلومات صحية أو طلبات خاصة *
-                  </label>
-                  <textarea
-                    id="extraInfo"
-                    name="extraInfo"
-                    value={formData.extraInfo}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
+              </label>
+              <textarea
+                id="extraInfo"
+                name="extraInfo"
+                value={formData.extraInfo}
+                onChange={handleInputChange}
+                required
+                rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none placeholder-gray-600 text-gray-900"
                     placeholder="أخبرنا عن أي معلومات صحية، حساسية، أو طلبات خاصة..."
-                  />
+              />
                 </div>
               </div>
             </div>
@@ -745,35 +745,35 @@ export default function RegisterPage() {
                 <span className="bg-orange-100 text-orange-700 rounded-full p-2 mr-3">📷</span>
                 الصورة الشخصية
               </h3>
-              <div>
+            <div>
                 <label htmlFor="photo" className="block text-sm font-medium text-gray-900 mb-2">
-                  صورة شخصية *
-                </label>
-                <div className="space-y-4">
-                  <input
-                    type="file"
-                    id="photo"
-                    name="photo"
-                    accept="image/*"
-                    onChange={handlePhotoChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
-                  />
-                  
-                  {photoPreview && (
-                    <div className="mt-4">
+                صورة شخصية *
+              </label>
+              <div className="space-y-4">
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
+                />
+                
+                {photoPreview && (
+                  <div className="mt-4">
                       <p className="text-sm text-gray-900 mb-2">معاينة الصورة:</p>
-                      <img
-                        src={photoPreview}
-                        alt="Photo preview"
-                        className="w-32 h-32 object-cover rounded-lg border-2 border-gray-200"
-                      />
-                    </div>
-                  )}
-                </div>
+                    <img
+                      src={photoPreview}
+                      alt="Photo preview"
+                      className="w-32 h-32 object-cover rounded-lg border-2 border-gray-200"
+                    />
+                  </div>
+                )}
+              </div>
                 <p className="text-sm text-gray-700 mt-1">
-                  يرجى رفع صورة واضحة (5MB كحد أقصى، بصيغة JPG أو PNG)
-                </p>
+                يرجى رفع صورة واضحة (5MB كحد أقصى، بصيغة JPG أو PNG)
+              </p>
               </div>
             </div>
 

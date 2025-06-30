@@ -364,6 +364,61 @@ export default function HomePage() {
             opacity: 0.2
           }}
         >15</div>
+
+        {/* Sand Wave at the bottom */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg 
+            className="relative block w-full h-[80px] sm:h-[100px] md:h-[120px]" 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none"
+            style={{ transform: 'rotate(180deg)' }}
+          >
+            <defs>
+              <linearGradient id="sandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#F4E4BC" />
+                <stop offset="25%" stopColor="#E6D3A3" />
+                <stop offset="50%" stopColor="#DCC992" />
+                <stop offset="75%" stopColor="#D4BE8A" />
+                <stop offset="100%" stopColor="#C8B577" />
+              </linearGradient>
+              <linearGradient id="sandShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#B8A66B" />
+                <stop offset="100%" stopColor="#A69758" />
+              </linearGradient>
+            </defs>
+            
+            {/* Main sand wave */}
+            <path 
+              d="M0,0 C120,80 240,80 360,60 C480,40 600,60 720,80 C840,100 960,80 1080,60 C1160,50 1200,40 1200,40 L1200,120 L0,120 Z" 
+              fill="url(#sandGradient)"
+            />
+            
+            {/* Secondary sand layer for depth */}
+            <path 
+              d="M0,20 C150,100 300,80 450,60 C600,40 750,80 900,60 C1050,40 1200,60 1200,60 L1200,120 L0,120 Z" 
+              fill="url(#sandShadow)"
+              opacity="0.7"
+            />
+            
+            {/* Sand texture details */}
+            <path 
+              d="M0,40 C100,60 200,40 300,50 C400,60 500,40 600,50 C700,60 800,40 900,50 C1000,60 1100,40 1200,50 L1200,120 L0,120 Z" 
+              fill="#E8D5A6"
+              opacity="0.5"
+            />
+            
+            {/* Small sand ripples */}
+            <circle cx="200" cy="45" r="3" fill="#D4BE8A" opacity="0.6"/>
+            <circle cx="500" cy="55" r="2" fill="#C8B577" opacity="0.8"/>
+            <circle cx="800" cy="40" r="2.5" fill="#DCC992" opacity="0.7"/>
+            <circle cx="1000" cy="50" r="2" fill="#B8A66B" opacity="0.6"/>
+            
+            {/* Sand particle details */}
+            <ellipse cx="300" cy="50" rx="8" ry="3" fill="#E6D3A3" opacity="0.4"/>
+            <ellipse cx="700" cy="45" rx="6" ry="2" fill="#D4BE8A" opacity="0.5"/>
+            <ellipse cx="900" cy="55" rx="7" ry="2.5" fill="#C8B577" opacity="0.4"/>
+          </svg>
+        </div>
       </section>
 
       {/* Countdown Section */}

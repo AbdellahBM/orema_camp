@@ -348,8 +348,8 @@ export default function RegistrationDetailPage() {
                     Registered: {new Date(registration.created_at).toLocaleDateString()}
                   </span>
                 </div>
+                </div>
               </div>
-            </div>
             </div>
           </div>
 
@@ -570,15 +570,15 @@ export default function RegistrationDetailPage() {
                 {/* Extra Info (Health/Special requests) */}
                 <div>
                   <label className="block text-sm font-medium text-gray-900 mb-2">معلومات صحية وطلبات خاصة</label>
-                  {isEditing ? (
-                    <textarea
-                      value={editData.extra_info || ''}
-                      onChange={(e) => handleInputChange('extra_info', e.target.value)}
-                      rows={4}
+              {isEditing ? (
+                <textarea
+                  value={editData.extra_info || ''}
+                  onChange={(e) => handleInputChange('extra_info', e.target.value)}
+                  rows={4}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-gray-900"
                       placeholder="معلومات صحية أو طلبات خاصة..."
-                    />
-                  ) : (
+                />
+              ) : (
                     <p className="text-gray-900 whitespace-pre-wrap bg-gray-50 p-3 rounded-lg">
                       {registration.extra_info || <span className="text-gray-600 italic">غير مقدم</span>}
                     </p>
