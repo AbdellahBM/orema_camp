@@ -20,14 +20,20 @@ export default function HomePage() {
     seconds: 0
   })
 
-  // Set your event date here (adjust as needed)
-  const eventDate = new Date('2024-07-15T08:00:00')
+  // Check if event has passed
+  const isEventPassed = () => {
+    const now = new Date().getTime()
+    return eventDate.getTime() <= now
+  }
+
+  // Set your event date here (August 4, 2025)
+  const eventDate = new Date('2025-08-04T08:00:00')
 
   const [menuOpen, toggleMenu] = useToggle(false);
   const [posterOpen, setPosterOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const calculateTimeLeft = () => {
       const now = new Date().getTime()
       const difference = eventDate.getTime() - now
 
@@ -38,11 +44,25 @@ export default function HomePage() {
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000)
         })
+      } else {
+        // Event has passed - show zeros
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        })
       }
-    }, 1000)
+    }
+
+    // Calculate immediately on mount
+    calculateTimeLeft()
+
+    // Update every second
+    const timer = setInterval(calculateTimeLeft, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [eventDate])
 
   const timelineEvents = [
     {
@@ -351,35 +371,70 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/60 z-0"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">انطلاق الملتقى بعد...</h2>
-            <p className="text-xl mb-12 opacity-90">سارع بالتسجيل، المقاعد محدودة!</p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl md:text-4xl font-bold">{timeLeft.days}</div>
-                <div className="text-sm uppercase tracking-wide opacity-80">يوم</div>
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl md:text-4xl font-bold">{timeLeft.hours}</div>
-                <div className="text-sm uppercase tracking-wide opacity-80">ساعة</div>
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl md:text-4xl font-bold">{timeLeft.minutes}</div>
-                <div className="text-sm uppercase tracking-wide opacity-80">دقيقة</div>
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl md:text-4xl font-bold">{timeLeft.seconds}</div>
-                <div className="text-sm uppercase tracking-wide opacity-80">ثانية</div>
-              </div>
-            </div>
+            {!isEventPassed() ? (
+              <>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">انطلاق الملتقى بعد...</h2>
+                <p className="text-xl mb-12 opacity-90">سارع بالتسجيل، المقاعد محدودة!</p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform">
+                    <div className="text-3xl md:text-4xl font-bold">{timeLeft.days}</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80">يوم</div>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform">
+                    <div className="text-3xl md:text-4xl font-bold">{timeLeft.hours}</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80">ساعة</div>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform">
+                    <div className="text-3xl md:text-4xl font-bold">{timeLeft.minutes}</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80">دقيقة</div>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform">
+                    <div className="text-3xl md:text-4xl font-bold">{timeLeft.seconds}</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80">ثانية</div>
+                  </div>
+                </div>
 
-            <Link 
-              href="/register"
-              className="bg-white text-brand-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-lg shadow-lg inline-flex items-center"
-            >
-              <span className="mr-2">⚡</span>
-              سجل الآن
-            </Link>
+                <Link 
+                  href="/register"
+                  className="bg-white text-brand-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-lg shadow-lg inline-flex items-center transform hover:scale-105"
+                >
+                  <span className="mr-2">⚡</span>
+                  سجل الآن
+                </Link>
+              </>
+            ) : (
+              <>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">🎉 لقد انطلق الملتقى!</h2>
+                <p className="text-xl mb-12 opacity-90">نتمنى لجميع المشاركين تجربة ممتعة ومفيدة</p>
+                
+                <div className="max-w-2xl mx-auto mb-12 bg-white/20 backdrop-blur-sm rounded-lg p-8">
+                  <div className="text-6xl md:text-8xl font-bold mb-4">🏕️</div>
+                  <p className="text-lg opacity-90">الملتقى الصيفي الـ 15 جاري الآن!</p>
+                  <p className="text-sm opacity-70 mt-2">4 أغسطس 2025</p>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-lg opacity-80">تابع معنا التحديثات والأنشطة</p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link 
+                      href="/admin"
+                      className="bg-white text-brand-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg inline-flex items-center justify-center transform hover:scale-105"
+                    >
+                      <span className="mr-2">📊</span>
+                      إدارة الملتقى
+                    </Link>
+                    <button
+                      className="bg-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/30 transition-colors font-semibold shadow-lg inline-flex items-center justify-center transform hover:scale-105"
+                      onClick={() => setPosterOpen(true)}
+                    >
+                      <span className="mr-2">🖼️</span>
+                      عرض الملصق
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
