@@ -8,6 +8,11 @@ import SearchBar from '../components/SearchBar'
 import StatusFilter from '../components/StatusFilter'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import { 
+  niveauScolaireOptions, 
+  orgStatusOptions, 
+  mapBooleanToArabic 
+} from '../../lib/formHelpers'
 
 const ADMIN_EMAILS = [
   "khouloud@orema.com",
@@ -26,6 +31,15 @@ export default function AdminPage() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
+  
+  // Advanced filters
+  const [ageFilter, setAgeFilter] = useState({ min: '', max: '' })
+  const [niveauFilter, setNiveauFilter] = useState('all')
+  const [orgStatusFilter, setOrgStatusFilter] = useState('all')
+  const [previousCampsFilter, setPreviousCampsFilter] = useState('all')
+  const [paymentFilter, setPaymentFilter] = useState('all')
+  const [scoreFilter, setScoreFilter] = useState({ min: '', max: '' })
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
   
   // Login form state
   const [loginData, setLoginData] = useState({ email: '', password: '' })
@@ -56,7 +70,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     filterRegistrations()
-  }, [registrations, searchTerm, statusFilter])
+  }, [registrations, searchTerm, statusFilter, ageFilter, niveauFilter, orgStatusFilter, previousCampsFilter, paymentFilter, scoreFilter])
 
   const checkUser = async () => {
     try {
@@ -137,7 +151,10 @@ export default function AdminPage() {
       filtered = filtered.filter(reg =>
         reg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         reg.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        reg.phone?.toLowerCase().includes(searchTerm.toLowerCase())
+        reg.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        reg.school?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        reg.camp_expectation?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        reg.extra_info?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -146,8 +163,76 @@ export default function AdminPage() {
       filtered = filtered.filter(reg => reg.status === statusFilter)
     }
 
+    // Apply age filter
+    if (ageFilter.min || ageFilter.max) {
+      filtered = filtered.filter(reg => {
+        if (!reg.age) return false
+        const age = parseInt(reg.age)
+        const minAge = ageFilter.min ? parseInt(ageFilter.min) : 0
+        const maxAge = ageFilter.max ? parseInt(ageFilter.max) : 999
+        return age >= minAge && age <= maxAge
+      })
+    }
+
+    // Apply educational level filter
+    if (niveauFilter !== 'all') {
+      filtered = filtered.filter(reg => reg.niveau_scolaire === niveauFilter)
+    }
+
+    // Apply organization status filter
+    if (orgStatusFilter !== 'all') {
+      filtered = filtered.filter(reg => reg.org_status === orgStatusFilter)
+    }
+
+    // Apply previous camps filter
+    if (previousCampsFilter !== 'all') {
+      const filterValue = previousCampsFilter === 'yes'
+      filtered = filtered.filter(reg => reg.previous_camps === filterValue)
+    }
+
+    // Apply payment capability filter
+    if (paymentFilter !== 'all') {
+      const filterValue = paymentFilter === 'yes'
+      filtered = filtered.filter(reg => reg.can_pay_350dh === filterValue)
+    }
+
+    // Apply score filter
+    if (scoreFilter.min || scoreFilter.max) {
+      filtered = filtered.filter(reg => {
+        if (!reg.score) return false
+        const score = parseInt(reg.score)
+        const minScore = scoreFilter.min ? parseInt(scoreFilter.min) : 0
+        const maxScore = scoreFilter.max ? parseInt(scoreFilter.max) : 100
+        return score >= minScore && score <= maxScore
+      })
+    }
+
     setFilteredRegistrations(filtered)
     setCurrentPage(1) // Reset to first page when filtering
+  }
+
+  const clearAllFilters = () => {
+    setSearchTerm('')
+    setStatusFilter('all')
+    setAgeFilter({ min: '', max: '' })
+    setNiveauFilter('all')
+    setOrgStatusFilter('all')
+    setPreviousCampsFilter('all')
+    setPaymentFilter('all')
+    setScoreFilter({ min: '', max: '' })
+  }
+
+  const hasActiveFilters = () => {
+    return searchTerm || 
+           statusFilter !== 'all' || 
+           ageFilter.min || 
+           ageFilter.max || 
+           niveauFilter !== 'all' || 
+           orgStatusFilter !== 'all' || 
+           previousCampsFilter !== 'all' || 
+           paymentFilter !== 'all' || 
+           scoreFilter.min || 
+           scoreFilter.max
   }
 
   const exportApprovedToPDF = async () => {
@@ -358,43 +443,315 @@ export default function AdminPage() {
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Status Stats */}
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-900">Total Registrations</h3>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">📊</span>
+              Total Registrations
+            </h3>
             <p className="text-3xl font-bold text-blue-600">{registrations.length}</p>
+            <div className="mt-2 text-sm text-gray-600">
+              {filteredRegistrations.length !== registrations.length && (
+                <span>Filtered: {filteredRegistrations.length}</span>
+              )}
+            </div>
           </div>
+          
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-900">New</h3>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">🆕</span>
+              New
+            </h3>
             <p className="text-3xl font-bold text-yellow-600">
               {registrations.filter(r => r.status === 'new').length}
             </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {Math.round((registrations.filter(r => r.status === 'new').length / registrations.length) * 100) || 0}% of total
+            </div>
           </div>
+          
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-900">Approved</h3>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">✅</span>
+              Approved
+            </h3>
             <p className="text-3xl font-bold text-green-600">
               {registrations.filter(r => r.status === 'approved').length}
             </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {Math.round((registrations.filter(r => r.status === 'approved').length / registrations.length) * 100) || 0}% of total
+            </div>
           </div>
+          
           <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-900">Declined</h3>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">❌</span>
+              Declined
+            </h3>
             <p className="text-3xl font-bold text-red-600">
               {registrations.filter(r => r.status === 'declined').length}
             </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {Math.round((registrations.filter(r => r.status === 'declined').length / registrations.length) * 100) || 0}% of total
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Average Score */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">🤖</span>
+              Average AI Score
+            </h3>
+            <p className="text-3xl font-bold text-purple-600">
+              {(() => {
+                const scoredRegistrations = registrations.filter(r => r.score)
+                const avgScore = scoredRegistrations.length > 0 
+                  ? Math.round(scoredRegistrations.reduce((sum, r) => sum + r.score, 0) / scoredRegistrations.length)
+                  : 0
+                return `${avgScore}/100`
+              })()}
+            </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {registrations.filter(r => r.score).length} scored out of {registrations.length}
+            </div>
+          </div>
+
+          {/* Age Range */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">🎂</span>
+              Age Range
+            </h3>
+            <p className="text-2xl font-bold text-orange-600">
+              {(() => {
+                const ages = registrations.filter(r => r.age).map(r => r.age)
+                if (ages.length === 0) return 'N/A'
+                const minAge = Math.min(...ages)
+                const maxAge = Math.max(...ages)
+                return `${minAge}-${maxAge}`
+              })()}
+            </p>
+            <div className="mt-2 text-sm text-gray-600">
+              Average: {(() => {
+                const ages = registrations.filter(r => r.age).map(r => r.age)
+                return ages.length > 0 ? Math.round(ages.reduce((sum, age) => sum + age, 0) / ages.length) : 0
+              })()} years
+            </div>
+          </div>
+
+          {/* Payment Capability */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">💰</span>
+              Can Pay Fees
+            </h3>
+            <p className="text-3xl font-bold text-green-600">
+              {registrations.filter(r => r.can_pay_350dh === true).length}
+            </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {Math.round((registrations.filter(r => r.can_pay_350dh === true).length / registrations.filter(r => r.can_pay_350dh !== null).length) * 100) || 0}% of respondents
+            </div>
+          </div>
+
+          {/* Previous Experience */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <span className="mr-2">🏕️</span>
+              Previous Experience
+            </h3>
+            <p className="text-3xl font-bold text-indigo-600">
+              {registrations.filter(r => r.previous_camps === true).length}
+            </p>
+            <div className="mt-2 text-sm text-gray-600">
+              {Math.round((registrations.filter(r => r.previous_camps === true).length / registrations.filter(r => r.previous_camps !== null).length) * 100) || 0}% have experience
+            </div>
           </div>
         </div>
 
         {/* Search and Filter */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 md:space-x-4">
-            <SearchBar 
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-            />
-            <StatusFilter 
-              statusFilter={statusFilter}
-              onStatusChange={setStatusFilter}
-            />
+          {/* Basic Filters Row */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 lg:space-x-4 mb-4">
+            <div className="flex-1">
+              <SearchBar 
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+              />
+            </div>
+            <div className="flex items-center space-x-4">
+              <StatusFilter 
+                statusFilter={statusFilter}
+                onStatusChange={setStatusFilter}
+              />
+              <button
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                  showAdvancedFilters 
+                    ? 'bg-blue-600 text-white border-blue-600' 
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                🔍 Advanced Filters
+              </button>
+              {hasActiveFilters() && (
+                <button
+                  onClick={clearAllFilters}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+                >
+                  🗑️ Clear All
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* Advanced Filters */}
+          {showAdvancedFilters && (
+            <div className="border-t pt-6 mt-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <span className="mr-2">🎯</span>
+                Advanced Filters
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Age Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                  <div className="flex space-x-2">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={ageFilter.min}
+                      onChange={(e) => setAgeFilter(prev => ({ ...prev, min: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={ageFilter.max}
+                      onChange={(e) => setAgeFilter(prev => ({ ...prev, max: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                  </div>
+                </div>
+
+                {/* Educational Level Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Educational Level</label>
+                  <select
+                    value={niveauFilter}
+                    onChange={(e) => setNiveauFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                  >
+                    <option value="all">All Levels</option>
+                    {niveauScolaireOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Organization Status Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Organization Status</label>
+                  <select
+                    value={orgStatusFilter}
+                    onChange={(e) => setOrgStatusFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                  >
+                    <option value="all">All Status</option>
+                    {orgStatusOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Previous Camps Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Previous Camps</label>
+                  <select
+                    value={previousCampsFilter}
+                    onChange={(e) => setPreviousCampsFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                  >
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+
+                {/* Payment Capability Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Payment Capability</label>
+                  <select
+                    value={paymentFilter}
+                    onChange={(e) => setPaymentFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                  >
+                    <option value="all">All</option>
+                    <option value="yes">Can Pay</option>
+                    <option value="no">Cannot Pay</option>
+                  </select>
+                </div>
+
+                {/* Score Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">AI Score</label>
+                  <div className="flex space-x-2">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      min="1"
+                      max="100"
+                      value={scoreFilter.min}
+                      onChange={(e) => setScoreFilter(prev => ({ ...prev, min: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      min="1"
+                      max="100"
+                      value={scoreFilter.max}
+                      onChange={(e) => setScoreFilter(prev => ({ ...prev, max: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Filter Summary */}
+              {hasActiveFilters() && (
+                <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-blue-800 font-medium">
+                        🎯 Showing {filteredRegistrations.length} of {registrations.length} registrations
+                      </span>
+                    </div>
+                    <div className="text-sm text-blue-600">
+                      Active filters: {Object.values({
+                        search: searchTerm,
+                        status: statusFilter !== 'all',
+                        age: ageFilter.min || ageFilter.max,
+                        niveau: niveauFilter !== 'all',
+                        org: orgStatusFilter !== 'all',
+                        camps: previousCampsFilter !== 'all',
+                        payment: paymentFilter !== 'all',
+                        score: scoreFilter.min || scoreFilter.max
+                      }).filter(Boolean).length}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Registrations Table */}
