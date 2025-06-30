@@ -221,35 +221,45 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section id="about" className="relative overflow-hidden pt-24 pb-12" style={{ 
+      <section id="about" className="relative overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-12" style={{ 
         background: 'linear-gradient(135deg, #87CEEB 0%, #E0F6FF 25%, #F0F8FF 50%, #FFF8DC 75%, #F4A460 100%)',
         backgroundSize: '200% 200%',
         animation: 'beachWave 8s ease-in-out infinite'
       }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           {/* Main Title */}
-          <div className="text-center mb-8">
-            <h1 className="text-5xl md:text-7xl font-extrabold text-brand-600 mb-6 tracking-tight leading-tight">الملتقى الصيفي</h1>
-            <div className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 text-lg text-gray-700 font-semibold mb-6">
-              <span className="inline-flex items-center gap-1"><svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" fill="#E19827"/></svg>طنجة</span>
-              <span className="inline-flex items-center gap-1"><svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="#589CA9"/></svg>من 5 إلى 11 غشت 2025</span>
+          <div className="text-center mb-1 sm:mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-brand-600 mb-4 sm:mb-6 tracking-tight leading-tight px-2">الملتقى الصيفي</h1>
+            <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-3 sm:gap-4 text-base sm:text-lg text-gray-700 font-semibold mb-4 sm:mb-6 px-4">
+              <span className="inline-flex items-center justify-center gap-2"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="sm:w-[22px] sm:h-[22px]"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" fill="#E19827"/></svg>طنجة</span>
+              <span className="inline-flex items-center justify-center gap-2"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="sm:w-[22px] sm:h-[22px]"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="#589CA9"/></svg>من 5 إلى 11 غشت 2025</span>
             </div>
           </div>
           {/* Speaker image */}
-          <div className="flex justify-center mb-8">
-            <div className="relative inline-block rounded-2xl overflow-hidden">
-              <Image src="/speaker.png" alt="صورة الضيف الرئيسي" width={600} height={600} className="object-cover" />
+          <div className="flex justify-center">
+            <div className="relative inline-block rounded-2xl overflow-hidden max-w-full">
+              <Image 
+                src="/speaker.png" 
+                alt="صورة الضيف الرئيسي" 
+                width={600} 
+                height={600} 
+                className="object-cover w-full h-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" 
+              />
+              {/* Speaker Description */}
+              <div className="absolute bottom-20 left-0 right-0 text-center font-bold mb-4 drop-shadow-lg" style={{ fontFamily: 'Tasees, Tasees Bold, sans-serif', background: 'linear-gradient(90deg, #FFD700 0%, #FFC300 40%, #FFB300 70%, #FF8F00 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textShadow: '0 2px 8px rgba(0,0,0,0.18), 0 1px 0 #fff' }}>
+                <p className="inline-block px-4 py-1 rounded-lg bg-white/10 backdrop-blur-sm">علم الدورة : الأستاذ عبد الله شبابو</p>
+              </div>
             </div>
           </div>
           {/* Slogan */}
-          <div className="text-center mt-8">
-            <div className="relative group">
+          <div className="text-center  sm:mt-6">
+            <div className="relative group max-w-4xl mx-auto px-4">
               <div className="absolute inset-0 bg-gradient-to-r from-brand-500/20 to-secondary-500/20 rounded-2xl blur-xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500"></div>
-              <div className="relative text-xl md:text-2xl text-secondary-900 font-bold bg-white/90 backdrop-blur-sm rounded-2xl inline-block px-8 py-4 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <div className="absolute top-0 left-4 w-6 h-6 bg-brand-500 rounded-full opacity-20"></div>
-                <div className="absolute bottom-0 right-4 w-4 h-4 bg-secondary-500 rounded-full opacity-20"></div>
-                <span className="relative z-10">على ضوء التحرير نحو طالب غايته الإصلاح و التغيير</span>
+              <div className="relative text-lg sm:text-xl md:text-2xl text-secondary-900 font-bold bg-white/90 backdrop-blur-sm rounded-2xl inline-block px-6 sm:px-8 py-3 sm:py-4 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 max-w-full">
+                <div className="absolute top-0 left-4 w-4 h-4 sm:w-6 sm:h-6 bg-brand-500 rounded-full opacity-20"></div>
+                <div className="absolute bottom-0 right-8 w-3 h-3 sm:w-4 sm:h-4 bg-secondary-500 rounded-full opacity-20"></div>
+                <span className="relative z-10 leading-relaxed">على ضوء التحرير نحو طالب غايته الإصلاح و التغيير</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </div>
@@ -258,9 +268,9 @@ export default function HomePage() {
         
         {/* Beach-themed decorative elements with 3D icons */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          {/* 3D Sun with rays */}
-          <div className="absolute top-40 left-1/2 translate-x-44 opacity-85" style={{ animation: 'float 4s ease-in-out infinite 1s' }}>
-            <svg width="180" height="180" viewBox="0 0 100 100" className="drop-shadow-2xl">
+          {/* 3D Sun with rays - Positioned closer to speaker and bigger */}
+          <div className="hidden md:block absolute top-48 lg:top-56 right-[20%] lg:right-[25%] opacity-85" style={{ animation: 'float 4s ease-in-out infinite 1s' }}>
+            <svg width="160" height="160" viewBox="0 0 100 100" className="drop-shadow-2xl lg:w-[200px] lg:h-[200px] xl:w-[240px] xl:h-[240px]">
               <defs>
                 <radialGradient id="sunGradient" cx="0.3" cy="0.3">
                   <stop offset="0%" stopColor="#fff176"/>
@@ -289,36 +299,47 @@ export default function HomePage() {
             </svg>
           </div>
 
-          {/* 3D Seashell */}
-          <div className="absolute bottom-40 left-1/2 -translate-x-60 opacity-70" style={{ animation: 'float 7s ease-in-out infinite 3s' }}>
-            <svg width="150" height="150" viewBox="0 0 100 100" className="drop-shadow-2xl">
+          {/* 3D Cloud - Positioned closer to center */}
+          <div className="hidden md:block absolute bottom-32 lg:bottom-40 left-[20%] lg:left-[25%] opacity-80" style={{ animation: 'float 6s ease-in-out infinite 2s' }}>
+            <svg width="140" height="100" viewBox="0 0 140 100" className="drop-shadow-2xl lg:w-[170px] lg:h-[120px] xl:w-[200px] xl:h-[140px]">
               <defs>
-                <radialGradient id="shellGradient" cx="0.4" cy="0.3">
-                  <stop offset="0%" stopColor="#ffab91"/>
-                  <stop offset="60%" stopColor="#ff7043"/>
-                  <stop offset="100%" stopColor="#d84315"/>
+                <radialGradient id="cloudGradient" cx="0.3" cy="0.2">
+                  <stop offset="0%" stopColor="#ffffff"/>
+                  <stop offset="50%" stopColor="#f0f8ff"/>
+                  <stop offset="100%" stopColor="#e6f3ff"/>
+                </radialGradient>
+                <radialGradient id="cloudShadow" cx="0.5" cy="0.8">
+                  <stop offset="0%" stopColor="#d0e7ff" opacity="0.3"/>
+                  <stop offset="100%" stopColor="#87ceeb" opacity="0.6"/>
                 </radialGradient>
               </defs>
-              <path d="M50 20 Q30 40 25 70 Q45 75 50 80 Q55 75 75 70 Q70 40 50 20 Z" fill="url(#shellGradient)"/>
-              <path d="M50 25 Q35 42 32 65 Q47 68 50 72 Q53 68 68 65 Q65 42 50 25 Z" fill="#ffffff" opacity="0.2"/>
-              {/* Shell ridges */}
-              <path d="M50 25 Q40 50 38 70" stroke="#d84315" strokeWidth="1" fill="none"/>
-              <path d="M50 25 Q50 50 50 70" stroke="#d84315" strokeWidth="1" fill="none"/>
-              <path d="M50 25 Q60 50 62 70" stroke="#d84315" strokeWidth="1" fill="none"/>
-              <ellipse cx="45" cy="35" rx="3" ry="5" fill="#ffffff" opacity="0.6"/>
+              {/* Cloud shadow/base */}
+              <ellipse cx="70" cy="85" rx="60" ry="12" fill="url(#cloudShadow)"/>
+              {/* Main cloud body */}
+              <circle cx="30" cy="60" r="22" fill="url(#cloudGradient)"/>
+              <circle cx="55" cy="50" r="28" fill="url(#cloudGradient)"/>
+              <circle cx="85" cy="55" r="25" fill="url(#cloudGradient)"/>
+              <circle cx="110" cy="65" r="20" fill="url(#cloudGradient)"/>
+              <circle cx="70" cy="70" r="30" fill="url(#cloudGradient)"/>
+              {/* Cloud highlights */}
+              <ellipse cx="45" cy="45" rx="8" ry="12" fill="#ffffff" opacity="0.7"/>
+              <ellipse cx="75" cy="50" rx="12" ry="8" fill="#ffffff" opacity="0.5"/>
+              <ellipse cx="95" cy="58" rx="6" ry="10" fill="#ffffff" opacity="0.6"/>
+              {/* Soft inner glow */}
+              <circle cx="70" cy="58" r="35" fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.3"/>
             </svg>
           </div>
         </div>
         
-        {/* Decorative background number with beach theme */}
+        {/* Decorative background number with beach theme - Responsive positioning */}
         <div 
-          className="absolute left-40 top-1/2 -translate-y-1/2 text-[14rem] md:text-[22rem] font-extrabold select-none pointer-events-none z-0"
+          className="absolute left-1/2 -translate-x-1/2 top-[30%] sm:top-1/2 sm:-translate-y-1/2 text-[10rem] sm:text-[12rem] md:text-[14rem] lg:text-[18rem] xl:text-[22rem] font-extrabold select-none pointer-events-none z-0"
           style={{ 
             background: 'linear-gradient(90deg, #FFD700 0%, #FFC300 40%, #FFB300 70%, #FF8F00 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-            opacity: 0.3
+            opacity: 0.2
           }}
         >15</div>
       </section>
