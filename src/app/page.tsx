@@ -309,7 +309,7 @@ export default function HomePage() {
               <div className="relative text-lg sm:text-xl md:text-2xl text-secondary-900 font-bold bg-white/90 backdrop-blur-sm rounded-2xl inline-block px-6 sm:px-8 py-3 sm:py-4 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 max-w-full">
                 <div className="absolute top-0 left-4 w-4 h-4 sm:w-6 sm:h-6 bg-brand-500 rounded-full opacity-20"></div>
                 <div className="absolute bottom-0 right-8 w-3 h-3 sm:w-4 sm:h-4 bg-secondary-500 rounded-full opacity-20"></div>
-                <span className="relative z-10 leading-relaxed">على ضوء التحرير نحو طالب غايته الإصلاح و التغيير</span>
+                <span className="relative z-10 leading-relaxed">من طنجة إلى جاكارتا سواعد واعدة لبناء أمة واحدة</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </div>
