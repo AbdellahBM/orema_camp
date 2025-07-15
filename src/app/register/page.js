@@ -668,7 +668,7 @@ export default function RegisterPage() {
                 {/* Can Pay 350dh - Radio buttons */}
                 <div>
                   <label className="block text-sm font-medium text-gray-900 mb-3">
-                    هل يمكنك دفع 350 درهم؟ *
+                    هل توافق على دفع رسوم المخيم؟ *
                   </label>
                   <div className="space-y-2">
                     <label className="flex items-center">
@@ -832,12 +832,12 @@ export default function RegisterPage() {
         {/* Floating Return Button */}
         <a
           href="/"
-          className="fixed z-50 bottom-6 right-6 md:bottom-8 md:right-8 bg-white/30 backdrop-blur-md border border-white/40 shadow-lg rounded-full px-3 py-2 flex items-center gap-2 text-brand-700 hover:bg-white/60 transition-all duration-200 text-sm font-semibold"
+          className="fixed z-50 bottom-4 right-4 md:bottom-8 md:right-8 bg-white/80 md:bg-white/30 backdrop-blur-md border border-white/60 shadow-2xl rounded-full px-4 py-3 flex items-center gap-2 text-brand-700 hover:bg-white/90 transition-all duration-200 text-base font-semibold"
           style={{direction: 'rtl'}}
           aria-label="العودة إلى الصفحة الرئيسية"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" /></svg>
-          <span className="hidden sm:inline">الرئيسية</span>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" /></svg>
+          <span className="inline">الرئيسية</span>
         </a>
       </div>
     </div>
