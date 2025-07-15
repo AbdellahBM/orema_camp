@@ -1,3 +1,9 @@
+/**
+ * Registration page component for summer camp
+ * Purpose: Handles user registration with form validation and submission
+ * Updated: Made last two fields optional and improved success message positioning
+ */
+
 'use client'
 
 import { useState } from 'react'
@@ -198,7 +204,7 @@ export default function RegisterPage() {
       return false
     }
     if (!validateAge(formData.age)) {
-      setError('العمر يجب أن يكون بين 17 و 26 سنة')
+      setError('العمر يجب أن يكون بين 14 و 26 سنة')
       return false
     }
     
@@ -226,15 +232,9 @@ export default function RegisterPage() {
       return false
     }
     
-    // Additional Information
-    if (!validateRequired(formData.camp_expectation)) {
-      setError('توقعات المخيم مطلوبة')
-      return false
-    }
-    if (!validateRequired(formData.extraInfo)) {
-      setError('المعلومات الإضافية مطلوبة')
-      return false
-    }
+    // Additional Information - Now optional, no validation needed
+    // Removed validation for camp_expectation and extraInfo
+    
     if (!formData.photo) {
       setError('الصورة الشخصية مطلوبة')
       return false
@@ -319,8 +319,8 @@ export default function RegisterPage() {
             org_status: formData.org_status,
             previous_camps: mapArabicToBoolean(formData.previous_camps),
             can_pay_350dh: mapArabicToBoolean(formData.can_pay_350dh),
-            camp_expectation: formData.camp_expectation,
-            extra_info: formData.extraInfo,
+            camp_expectation: formData.camp_expectation || null, // Allow empty values
+            extra_info: formData.extraInfo || null, // Allow empty values
             photo_url: urlData.publicUrl,
             status: 'new'
           }
@@ -353,8 +353,8 @@ export default function RegisterPage() {
             org_status: formData.org_status,
             previous_camps: mapArabicToBoolean(formData.previous_camps),
             can_pay_350dh: mapArabicToBoolean(formData.can_pay_350dh),
-            camp_expectation: formData.camp_expectation,
-            extra_info: formData.extraInfo
+            camp_expectation: formData.camp_expectation || null,
+            extra_info: formData.extraInfo || null
           })
         })
 
@@ -394,6 +394,14 @@ export default function RegisterPage() {
       setShowSuccess(true)
       resetForm()
       
+      // Scroll to success message
+      setTimeout(() => {
+        const successElement = document.getElementById('success-message')
+        if (successElement) {
+          successElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }, 100)
+      
       // Hide success message after 8 seconds (longer to show scoring status)
       setTimeout(() => {
         setShowSuccess(false)
@@ -402,6 +410,13 @@ export default function RegisterPage() {
 
     } catch (err) {
       setError(err.message)
+      // Scroll to error message
+      setTimeout(() => {
+        const errorElement = document.getElementById('error-message')
+        if (errorElement) {
+          errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }, 100)
     } finally {
       setIsSubmitting(false)
     }
@@ -446,27 +461,6 @@ export default function RegisterPage() {
       </section>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Success Message */}
-        {showSuccess && (
-          <div className="mb-6 p-4 bg-brand-100 border border-brand-400 text-brand-700 rounded-lg">
-            <div className="font-semibold mb-1">تم التسجيل بنجاح!</div>
-            <div className="mb-2">شكرًا لانضمامك للملتقى الصيفي! سنتواصل معك قريبًا لمزيد من التفاصيل.</div>
-            {scoringStatus && (
-              <div className="text-sm mt-2 p-2 bg-white bg-opacity-50 rounded">
-                <span className="mr-2">🤖</span>
-                {scoringStatus}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Error Message */}
-        {error && (
-          <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            <span>{error}</span>
-          </div>
-        )}
-
         {/* Registration Form */}
         <div className="bg-white rounded-xl shadow-lg p-8">
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -705,37 +699,35 @@ export default function RegisterPage() {
                 معلومات إضافية
               </h3>
               <div className="space-y-4">
-                {/* Camp Expectation */}
+                {/* Camp Expectation - Now Optional */}
                 <div>
                   <label htmlFor="camp_expectation" className="block text-sm font-medium text-gray-900 mb-2">
-                    ماذا تتوقع من هذا المخيم؟ *
+                    ماذا تتوقع من هذا المخيم؟ <span className="text-gray-500 text-xs">(اختياري)</span>
                   </label>
                   <textarea
                     id="camp_expectation"
                     name="camp_expectation"
                     value={formData.camp_expectation}
                     onChange={handleInputChange}
-                    required
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none placeholder-gray-600 text-gray-900"
-                    placeholder="أخبرنا عن توقعاتك وأهدافك من المشاركة في هذا المخيم..."
+                    placeholder="أخبرنا عن توقعاتك وأهدافك من المشاركة في هذا المخيم... (يمكنك ترك هذا الحقل فارغًا)"
               />
             </div>
 
-            {/* Extra Info */}
+            {/* Extra Info - Now Optional */}
             <div>
                   <label htmlFor="extraInfo" className="block text-sm font-medium text-gray-900 mb-2">
-                    معلومات صحية أو طلبات خاصة *
+                    معلومات صحية أو طلبات خاصة <span className="text-gray-500 text-xs">(اختياري)</span>
               </label>
               <textarea
                 id="extraInfo"
                 name="extraInfo"
                 value={formData.extraInfo}
                 onChange={handleInputChange}
-                required
                 rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none placeholder-gray-600 text-gray-900"
-                    placeholder="أخبرنا عن أي معلومات صحية، حساسية، أو طلبات خاصة..."
+                    placeholder="أخبرنا عن أي معلومات صحية، حساسية، أو طلبات خاصة... (يمكنك ترك هذا الحقل فارغًا)"
               />
                 </div>
               </div>
@@ -778,6 +770,27 @@ export default function RegisterPage() {
               </p>
               </div>
             </div>
+
+            {/* Error Message - positioned above submit button */}
+            {error && (
+              <div id="error-message" className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* Success Message - positioned above submit button */}
+            {showSuccess && (
+              <div id="success-message" className="p-4 bg-brand-100 border border-brand-400 text-brand-700 rounded-lg">
+                <div className="font-semibold mb-1">تم التسجيل بنجاح!</div>
+                <div className="mb-2">شكرًا لانضمامك للملتقى الصيفي! سنتواصل معك قريبًا لمزيد من التفاصيل.</div>
+                {scoringStatus && (
+                  <div className="text-sm mt-2 p-2 bg-white bg-opacity-50 rounded">
+                    <span className="mr-2">🤖</span>
+                    {scoringStatus}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Submit Button */}
             <button

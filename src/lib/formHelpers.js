@@ -1,4 +1,8 @@
-// Helper functions for form data mapping and validation
+/**
+ * Helper functions for form data mapping and validation
+ * Purpose: Provides validation logic and options for registration form
+ * Updated: Extended age range from 14-26 years old
+ */
 
 // Mapping functions for dropdown/select values
 export const niveauScolaireOptions = [
@@ -14,10 +18,10 @@ export const orgStatusOptions = [
   { value: 'متعاطف(ة)', label: 'متعاطف(ة)' }
 ]
 
-// Age options (17-26)
-export const ageOptions = Array.from({ length: 10 }, (_, i) => ({
-  value: i + 17,
-  label: (i + 17).toString()
+// Age options (14-26)
+export const ageOptions = Array.from({ length: 13 }, (_, i) => ({
+  value: i + 14,
+  label: (i + 14).toString()
 }))
 
 // Boolean mapping for Arabic radio buttons
@@ -52,7 +56,7 @@ export const getArabicStatusDisplay = (status) => {
 // Validation helpers
 export const validateAge = (age) => {
   const numAge = parseInt(age)
-  return numAge >= 17 && numAge <= 26
+  return numAge >= 14 && numAge <= 26
 }
 
 export const validateRequired = (value) => {

@@ -501,7 +501,7 @@ export default function RegistrationDetailPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">القدرة على دفع 350 درهم</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">هل توافق على دفع رسوم المخيم؟</label>
                   <p className="text-gray-900">
                     {registration.can_pay_350dh !== null && registration.can_pay_350dh !== undefined ? 
                       mapBooleanToArabic(registration.can_pay_350dh) : 
