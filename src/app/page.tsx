@@ -202,7 +202,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Image src="/logo.png" alt="شعار الملتقى الصيفي" width={48} height={48} className="mr-2 hover:scale-110 transition-transform duration-500" />
+              {/* Main Page Logos: original and new */}
+              {/* Both logos are shown side by side for brand identity and visual distinction. */}
+              <div className="flex items-center gap-3">
+                <Image src="/logo.png" alt="الشعار الأصلي" width={48} height={48} className="rounded" />
+                <Image src="/logo 2 .png" alt="الشعار الجديد" width={48} height={48} className="rounded" />
+              </div>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline gap-2">

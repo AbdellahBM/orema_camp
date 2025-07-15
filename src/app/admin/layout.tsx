@@ -38,6 +38,12 @@ export default function AdminLayout({
                   {/* Separator */}
                   <div className="h-6 w-px bg-gray-300"></div>
                   
+                  {/* Admin Panel Logos: original and new */}
+                  {/* Both logos are shown side by side for brand identity and visual distinction. */}
+                  <div className="flex items-center gap-2">
+                    <Image src="/logo.png" alt="الشعار الأصلي" width={32} height={32} className="rounded" />
+                    <Image src="/logo 2 .png" alt="الشعار الجديد" width={32} height={32} className="rounded" />
+                  </div>
                   {/* Admin Panel Title */}
                   <div className="flex items-center space-x-2">
                     <h1 className="text-xl font-semibold text-gray-900">Admin Panel</h1>
