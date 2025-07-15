@@ -66,39 +66,64 @@ export default function HomePage() {
 
   const timelineEvents = [
     {
-      time: "08:00 AM",
-      title: "Lorem Ipsum Dolor",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+      time: "08:00 - 08:30",
+      title: "الاستيقاظ (Waking Up)",
+      description: "بدء اليوم بنشاط واستعداد."
     },
     {
-      time: "10:00 AM", 
-      title: "Consectetur Adipiscing",
-      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi"
+      time: "08:45 - 09:15",
+      title: "وجبة الفطور + المصالح الخاصة (Breakfast + Personal Affairs)",
+      description: "تناول الفطور وإنجاز الأمور الشخصية."
     },
     {
-      time: "12:30 PM",
-      title: "Sed Do Eiusmod",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum"
+      time: "09:15 - 10:00",
+      title: "مادة قرآنية + أذكار الصباح + المواعظ الصباحية (Quranic Table + Morning Remembrances + Morning Sermons)",
+      description: "روحانية وبداية مباركة لليوم."
     },
     {
-      time: "02:00 PM",
-      title: "Tempor Incididunt",
-      description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui"
+      time: "10:00 - 11:00",
+      title: "الورشات (Workshops)",
+      description: "أنشطة وورشات متنوعة."
     },
     {
-      time: "04:30 PM",
-      title: "Ut Labore Dolore",
-      description: "Magna aliqua enim ad minim veniam, quis nostrud exercitation ullamco"
+      time: "11:00 - 14:00",
+      title: "السباحة + النظافة (Swimming + Cleaning)",
+      description: "نشاط بدني واهتمام بالنظافة."
     },
     {
-      time: "06:00 PM",
-      title: "Magna Aliqua",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"
+      time: "14:00 - 16:00",
+      title: "صلاة الظهر + وجبة الغذاء + قيلولة (Dhuhr Prayer + Lunch + Nap)",
+      description: "راحة واستعادة النشاط."
     },
     {
-      time: "08:00 PM",
-      title: "Consectetur Elit",
-      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+      time: "16:00 - 18:00",
+      title: "محور (Core Activity)",
+      description: "النشاط الرئيسي لليوم."
+    },
+    {
+      time: "18:30 - 20:00",
+      title: "وقت حر (Free Time)",
+      description: "وقت للراحة أو الأنشطة الحرة."
+    },
+    {
+      time: "20:00 - 20:45",
+      title: "التجمع + التلميحة + الصلاة (Gathering + Reflection + Prayer)",
+      description: "جلسة جماعية وتأمل وصلاة."
+    },
+    {
+      time: "20:45 - 21:30",
+      title: "صلاة المغرب + رحاب المسجد (Maghrib Prayer + Mosque Atmosphere)",
+      description: "أجواء روحانية في المسجد."
+    },
+    {
+      time: "21:30 - 23:00",
+      title: "أمسية (Evening Activity)",
+      description: "نشاط مسائي ترفيهي أو ثقافي."
+    },
+    {
+      time: "23:00 - 23:30",
+      title: "وجبة العشاء + النوم (Dinner + Sleep)",
+      description: "ختام اليوم وتناول العشاء والاستعداد للنوم."
     }
   ]
 
@@ -177,14 +202,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Image src="/logo.png" alt="شعار الملتقى الصيفي" width={48} height={48} className="mr-2 animate-spin-slow hover:scale-110 transition-transform duration-500" />
+              <Image src="/logo.png" alt="شعار الملتقى الصيفي" width={48} height={48} className="mr-2 hover:scale-110 transition-transform duration-500" />
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline gap-2">
                 <a href="#about" className="nav-link" onClick={e => handleNavClick(e, 'about')}>حول الملتقى</a>
                 <a href="#countdown" className="nav-link" onClick={e => handleNavClick(e, 'countdown')}>العد التنازلي</a>
                 <a href="#timeline" className="nav-link" onClick={e => handleNavClick(e, 'timeline')}>البرنامج</a>
-                <a href="#gallery" className="nav-link" onClick={e => handleNavClick(e, 'gallery')}>المعرض</a>
                 <button
                   className="ml-2 px-4 py-2 rounded-lg font-medium shadow-md transition-all duration-300 bg-secondary-600 text-white hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-secondary-400"
                   onClick={() => setPosterOpen(true)}
@@ -220,7 +244,6 @@ export default function HomePage() {
             <a href="#about" className="nav-link py-2" onClick={e => handleNavClick(e, 'about')}>حول الملتقى</a>
             <a href="#countdown" className="nav-link py-2" onClick={e => handleNavClick(e, 'countdown')}>العد التنازلي</a>
             <a href="#timeline" className="nav-link py-2" onClick={e => handleNavClick(e, 'timeline')}>البرنامج</a>
-            <a href="#gallery" className="nav-link py-2" onClick={e => handleNavClick(e, 'gallery')}>المعرض</a>
             <button
               className="w-full text-center mt-2 px-4 py-2 rounded-lg font-medium shadow-md transition-all duration-300 bg-secondary-600 text-white hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-secondary-400"
               onClick={() => setPosterOpen(true)}
@@ -498,9 +521,12 @@ export default function HomePage() {
       <section id="timeline" className="py-20 bg-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">برنامج الملتقى</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              نظرة على برنامج الملتقى
+              <span className="block text-lg font-normal text-gray-500 mt-1">A Look at the Camp Program</span>
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              اكتشف تفاصيل الأنشطة والفعاليات اليومية للملتقى الصيفي.
+              هكذا قد يبدو يومك في الملتقى الصيفي - This is how your day at camp might look like.
             </p>
           </div>
 
@@ -532,45 +558,6 @@ export default function HomePage() {
               className="bg-brand-600 text-white px-8 py-4 rounded-lg hover:bg-brand-700 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               سجل الآن - المقاعد محدودة!
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      <section id="gallery" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">معرض الصور</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              تصفح أجمل لحظات الملتقى الصيفي في صور.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <img 
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <p className="font-medium">{image.alt}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-16">
-            <p className="text-lg text-gray-600 mb-6">هل ترغب في الانضمام إلينا؟ سجل الآن!</p>
-            <Link 
-              href="/register"
-              className="bg-brand-600 text-white px-8 py-4 rounded-lg hover:bg-brand-700 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              سجل الآن
             </Link>
           </div>
         </div>
@@ -617,15 +604,14 @@ export default function HomePage() {
               <ul className="space-y-2">
                 <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">حول الملتقى</a></li>
                 <li><a href="#timeline" className="text-gray-300 hover:text-white transition-colors">البرنامج</a></li>
-                <li><a href="#gallery" className="text-gray-300 hover:text-white transition-colors">المعرض</a></li>
                 <li><Link href="/register" className="text-secondary-400 hover:text-secondary-300 transition-colors font-medium">سجل الآن</Link></li>
               </ul>
             </div>
             <div className="text-center">
               <h4 className="text-lg font-semibold mb-4">معلومات التواصل</h4>
               <div className="space-y-2 text-gray-300">
-                <p>📧 info@orema.ma</p>
-                <p>📞 0600 000 000</p>
+                <p>📧 oramatanger@gmail.com</p>
+                <p>📞 +212700901991</p>
                 <p>📍 طنجة، المغرب</p>
               </div>
             </div>

@@ -40,13 +40,6 @@ export default function AdminLayout({
                   
                   {/* Admin Panel Title */}
                   <div className="flex items-center space-x-2">
-                    <Image 
-                      src="/logo.png" 
-                      alt="شعار الملتقى الصيفي" 
-                      width={32} 
-                      height={32} 
-                      className="hover:scale-110 transition-transform duration-300" 
-                    />
                     <h1 className="text-xl font-semibold text-gray-900">Admin Panel</h1>
                   </div>
                 </div>

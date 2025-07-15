@@ -418,7 +418,9 @@ export default function RegisterPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-8 relative z-10">
           <div className="text-center mb-8">
             <h1 className="text-5xl md:text-7xl font-extrabold text-brand-600 mb-2 tracking-tight leading-tight">استمارة التسجيل في الملتقى الصيفي</h1>
-            <div className="text-lg text-gray-900 font-semibold mb-2">انضم إلينا في مغامرة صيفية لا تُنسى!</div>
+            <div className="text-lg text-gray-900 font-semibold mb-2">
+              اغتنم فرصة الانضمام إلى ملتقى صيفي مميز يجمع بين المتعة، التعلم، وتطوير الذات في أجواء آمنة وملهمة. كن جزءًا من مجتمع شبابي طموح واكتشف قدراتك من خلال أنشطة متنوعة ورفقة محفزة.
+            </div>
           </div>
           <div className="text-center mt-8">
             <div className="relative group">
@@ -816,7 +818,7 @@ export default function RegisterPage() {
               <span className="text-2xl mr-3">🌲</span>
               <h3 className="text-lg font-semibold text-gray-800">أنشطة المخيم</h3>
             </div>
-            <p className="text-gray-800">رحلات مشي، سباحة، سهرات نار، ورشات يدوية، والمزيد من المغامرات!</p>
+            <p className="text-gray-800">استمتع بتجربة فريدة تجمع بين المغامرة، التعلم، والمرح: رحلات استكشافية، سباحة، أمسيات ترفيهية، ورشات إبداعية، وأنشطة جماعية تعزز روح الفريق.</p>
           </div>
           
           <div className="bg-white rounded-lg shadow-md p-6">
@@ -824,9 +826,19 @@ export default function RegisterPage() {
               <span className="text-2xl mr-3">📞</span>
               <h3 className="text-lg font-semibold text-gray-800">تحتاج مساعدة؟</h3>
             </div>
-            <p className="text-gray-800">لديك استفسار حول التسجيل؟ تواصل معنا عبر info@orema.ma أو اتصل على 0600 000 000</p>
+            <p className="text-gray-800">فريقنا مستعد للإجابة عن جميع استفساراتك حول التسجيل أو البرنامج. تواصل معنا عبر البريد الإلكتروني <a href="mailto:oramatanger@gmail.com" className="text-brand-600 underline">oramatanger@gmail.com</a> أو الهاتف <a href="tel:+212700901991" className="text-brand-600 underline">+212700901991</a>.</p>
           </div>
         </div>
+        {/* Floating Return Button */}
+        <a
+          href="/"
+          className="fixed z-50 bottom-6 right-6 md:bottom-8 md:right-8 bg-white/30 backdrop-blur-md border border-white/40 shadow-lg rounded-full px-3 py-2 flex items-center gap-2 text-brand-700 hover:bg-white/60 transition-all duration-200 text-sm font-semibold"
+          style={{direction: 'rtl'}}
+          aria-label="العودة إلى الصفحة الرئيسية"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" /></svg>
+          <span className="hidden sm:inline">الرئيسية</span>
+        </a>
       </div>
     </div>
   )
